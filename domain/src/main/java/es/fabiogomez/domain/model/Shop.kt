@@ -6,13 +6,13 @@ import java.util.*
 data class Shop(
                 val id: Int,
                 val name: String,
+                val address: String,
                 val description_en: String,
                 val latitude: Float?,
                 val longitude: Float?,
                 val img: String,
                 val logo: String,
-                val openingHours_en: String,
-                val address: String): Serializable {
+                val openingHours_en: String): Serializable {
     init {
         Shops(ArrayList<Shop>())
     }

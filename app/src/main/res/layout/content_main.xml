@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="es.fabiogomez.madridshops.Activity.MainActivity"
+    tools:context="es.fabiogomez.madridshops.Activity.ShopsActivity"
     tools:showIn="@layout/activity_main"
     android:orientation="vertical"
 

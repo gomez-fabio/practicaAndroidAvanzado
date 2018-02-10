@@ -44,7 +44,7 @@
         <!-- Google Maps API Key -->
 
         <activity
-            android:name=".Activity.MainActivity"
+            android:name=".Activity.ShopsActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

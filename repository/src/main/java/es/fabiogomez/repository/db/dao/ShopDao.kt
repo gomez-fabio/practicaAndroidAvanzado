@@ -17,13 +17,7 @@ internal class ShopDao (val dbHelper: DBHelper) : DAOPersistable<ShopEntity>
     override fun insert(element: ShopEntity): Long {
         var id: Long = 0 // Valor por defecto es -1 que es un error
 
-        dbReadWriteConnection.beginTransaction()
-        try {
-            id = dbReadWriteConnection.insert(DBConstants.TABLE_SHOP, null,contentValues(element))
-        } finally {
-            dbReadWriteConnection.endTransaction()
-            dbReadWriteConnection.close()
-        }
+        id = dbReadWriteConnection.insert(DBConstants.TABLE_SHOP, null,contentValues(element))
 
         return  id
     }
@@ -52,34 +46,18 @@ internal class ShopDao (val dbHelper: DBHelper) : DAOPersistable<ShopEntity>
     }
 
     override fun delete(id: Long): Long {
-
-        dbReadWriteConnection.beginTransaction()
-
-        try {
-            return dbReadWriteConnection.delete(
-                    DBConstants.TABLE_SHOP,
-                    DBConstants.KEY_SHOP_DATABASE_ID + " = ?",
-                    arrayOf(id.toString())).toLong()
-        } finally {
-            dbReadWriteConnection.endTransaction()
-            dbReadWriteConnection.close()
-        }
-
+        return dbReadWriteConnection.delete(
+                DBConstants.TABLE_SHOP,
+                DBConstants.KEY_SHOP_DATABASE_ID + " = ?",
+                arrayOf(id.toString())).toLong()
     }
 
     override fun deleteAll(): Boolean {
-        dbReadWriteConnection.beginTransaction()
-        try {
-            return dbReadWriteConnection.delete(
-                    DBConstants.TABLE_SHOP,
-                    null,
-                    null
-            ).toLong() >= 0
-        } finally {
-            dbReadWriteConnection.endTransaction()
-            dbReadWriteConnection.close()
-        }
-
+        return dbReadWriteConnection.delete(
+                DBConstants.TABLE_SHOP,
+                null,
+                null
+        ).toLong() >= 0
     }
 
     override fun query(id: Long): ShopEntity {
@@ -95,50 +73,42 @@ internal class ShopDao (val dbHelper: DBHelper) : DAOPersistable<ShopEntity>
         val queryResult = ArrayList<ShopEntity>()
 
         val cursor = dbReadOnlyConnection.query(
-                                                DBConstants.TABLE_SHOP,
-                                                DBConstants.ALL_COLUMNS,
-                                                null,
-                                                null,
-                                                "",
-                                                "",
-                                                DBConstants.KEY_SHOP_DATABASE_ID)
+                DBConstants.TABLE_SHOP,
+                DBConstants.ALL_COLUMNS,
+                null,
+                null,
+                "",
+                "",
+                DBConstants.KEY_SHOP_DATABASE_ID)
 
         while (cursor.moveToNext()) {
             val shopEntity = entityFromCursor(cursor)
             queryResult.add(shopEntity!!)
         }
-        dbReadOnlyConnection.close()
+
         return queryResult
     }
 
     override fun queryCursor(id: Long): Cursor {
         val cursor = dbReadOnlyConnection.query(
-                                                DBConstants.TABLE_SHOP,
-                                                DBConstants.ALL_COLUMNS,
-                                        DBConstants.KEY_SHOP_DATABASE_ID + " = ?",
-                                                arrayOf(id.toString()),
-                                                            "",
-                                                             "",
-                                                DBConstants.KEY_SHOP_DATABASE_ID)
-        dbReadOnlyConnection.close()
+                DBConstants.TABLE_SHOP,
+                DBConstants.ALL_COLUMNS,
+                DBConstants.KEY_SHOP_DATABASE_ID + " = ?",
+                arrayOf(id.toString()),
+                "",
+                "",
+                DBConstants.KEY_SHOP_DATABASE_ID)
+
         return cursor
     }
 
     override fun update(id: Long, element: ShopEntity): Long {
-
-        try {
-            val numberOfRecordsUpdated= dbReadWriteConnection.update(
-                    DBConstants.TABLE_SHOP,
-                    contentValues(element),
-                    DBConstants.KEY_SHOP_DATABASE_ID + " =? ",
-                    arrayOf(id.toString()))
-
-            return numberOfRecordsUpdated.toLong()
-        } finally {
-            dbReadWriteConnection.endTransaction()
-            dbReadWriteConnection.close()
-        }
-
+        val numberOfRecordsUpdated= dbReadWriteConnection.update(
+                DBConstants.TABLE_SHOP,
+                contentValues(element),
+                DBConstants.KEY_SHOP_DATABASE_ID + " =? ",
+                arrayOf(id.toString()))
+        return numberOfRecordsUpdated.toLong()
     }
 
     fun entityFromCursor (cursor: Cursor): ShopEntity? {
@@ -151,13 +121,13 @@ internal class ShopDao (val dbHelper: DBHelper) : DAOPersistable<ShopEntity>
                 cursor.getLong(cursor.getColumnIndex(DBConstants.KEY_SHOP_ID_JSON)),
                 cursor.getLong(cursor.getColumnIndex(DBConstants.KEY_SHOP_DATABASE_ID)),
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_NAME)),
+                cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_ADDRESS)),
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_DESCRIPTION)),
-                cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_LATITUDE)),
-                cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_LONGITUDE)),
+                cursor.getFloat(cursor.getColumnIndex(DBConstants.KEY_SHOP_LATITUDE)),
+                cursor.getFloat(cursor.getColumnIndex(DBConstants.KEY_SHOP_LONGITUDE)),
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_IMAGE_URL)),
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_LOGO_IMAGE_URL)),
-                cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_OPENING_HOURS)),
-                cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_ADDRESS)))
+                cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_OPENING_HOURS)))
     }
 
 }

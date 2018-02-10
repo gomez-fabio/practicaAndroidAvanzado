@@ -21,7 +21,7 @@ class GetAllShopsInteractorFakeImpl : GetAllShopsInteractor {
 
             success.successCompletion(shops)
         } else {
-            error.errorCompletion("Error while accesing repository JARL")
+            error.errorCompletion("💩 Error while accesing repository JARL")
         }
     }
 
@@ -34,7 +34,7 @@ class GetAllShopsInteractorFakeImpl : GetAllShopsInteractor {
 
             success(shops)
         } else {
-            error("Error while accesing repository JARL")
+            error("💩E rror while accesing repository JARL")
         }
     }
 
@@ -42,7 +42,16 @@ class GetAllShopsInteractorFakeImpl : GetAllShopsInteractor {
         val list = ArrayList<Shop>()
 
         for (i in 0..100) {
-            val shop = Shop(i, "Shop#" + i, "Address#" + i)
+            val shop = Shop(
+                            i,
+                    "Shop#" + i,
+                    "Address#" + i,
+                    "Description#" +i,
+                    null,
+                    null,
+                    "https://pre00.deviantart.net/d5e5/th/pre/i/2016/165/6/7/capsule_corp_logo___cdr_by_dominik_skowera-da67d8q.png",
+                    "https://consequenceofsound.files.wordpress.com/2015/10/screen-shot-2015-10-17-at-6-57-13-pm.png",
+                    "10-14" + i)
             list.add(shop)
         }
 

@@ -8,11 +8,11 @@ data class ShopEntity (
         val id: Long,
         val databaseId: Long,
         val name: String,
+        val address: String,
         @JsonProperty("description_en") val description: String,
-        @JsonProperty("gps_lat") val latitude: String,
-        @JsonProperty("gps_lon") val longitude: String,
+        @JsonProperty("gps_lat") val latitude: Float,
+        @JsonProperty("gps_lon") val longitude: Float,
         val img: String,
         @JsonProperty("logo_img") val logo: String,
-        @JsonProperty("opening_hours_en") val openingHours: String,
-        val address: String
+        @JsonProperty("opening_hours_en") val openingHours: String
 )

@@ -1,8 +1,18 @@
 package es.fabiogomez.domain.model
 
+import java.io.Serializable
 import java.util.*
 
-data class Shop(val id: Int, val name: String, val address: String) {
+data class Shop(
+                val id: Int,
+                val name: String,
+                val description_en: String,
+                val latitude: Float?,
+                val longitude: Float?,
+                val img: String,
+                val logo: String,
+                val openingHours_en: String,
+                val address: String): Serializable {
     init {
         Shops(ArrayList<Shop>())
     }

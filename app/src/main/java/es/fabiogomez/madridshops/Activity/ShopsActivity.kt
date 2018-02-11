@@ -30,6 +30,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class ShopsActivity : AppCompatActivity() {
 
+    val madridLatitude  = 40.427786f
+    val madridLongitude = -3.695894f
     var listFragment: ListFragment? = null
     var shopList: Shops? = null
 
@@ -84,7 +86,7 @@ class ShopsActivity : AppCompatActivity() {
         mapFragment.getMapAsync({ mapa ->
             Log.d("SUCCESS", "HABEMUS MAPA")
 
-            centerMapInPosition(mapa,37.357537, -5.980877)
+            centerMapInPosition(mapa,madridLatitude.toDouble(), madridLongitude.toDouble())
             mapa.uiSettings.isRotateGesturesEnabled = false
             mapa.uiSettings.isZoomControlsEnabled = true
             showUserPosition(baseContext, mapa)
@@ -113,6 +115,7 @@ class ShopsActivity : AppCompatActivity() {
             return
         }
 
+        map?.isMyLocationEnabled = true
 
     }
 
@@ -127,12 +130,20 @@ class ShopsActivity : AppCompatActivity() {
 
             }
         }
+
     }
 
     fun addAllPins(shops: Shops){
         for (i in 0 until shops.count()){
             val shop = shops.get(i)
-            addPin(this.map!!,37.357537, -5.980877, shop.name)
+            try{
+                addPin(this.map!!,
+                        shop.latitude!!.toDouble(),
+                        shop.longitude!!.toDouble(),
+                        shop.name)
+            } catch(e: Exception){
+                Log.d("Error","💩 ShopsActivity.AddAllPin Error")
+            }
         }
     }
     fun addPin(map: GoogleMap, latitude: Double, longitude: Double, title: String) {

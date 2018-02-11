@@ -55,11 +55,11 @@ class ShopsActivity : AppCompatActivity() {
 
     }
 
-  /*  private fun setupList() {
+    private fun setupList() {
         listFragment = supportFragmentManager.findFragmentById(R.id.activity_main_list_fragment) as ListFragment?
 
         listFragment?.setShops(shopList!!.shops)
-    }*/
+    }
 
     private fun setupMap() {
         val getAllShopsInteractor : GetAllShopsInteractor = GetAllShopsInteractorImpl(this)
@@ -68,7 +68,7 @@ class ShopsActivity : AppCompatActivity() {
             override fun successCompletion(shops: Shops) {
                 shopList = shops
                 initializeMap(shops)
-                //setupList()
+                setupList()
             }
 
         }, object: ErrorCompletion{

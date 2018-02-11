@@ -18,7 +18,7 @@ internal class GetJsonManagerVolleyImpl (context: Context): GetJsonManager {
      override fun execute(url: String, success: SuccessCompletion<String>, error: ErrorCompletion) {
 
          // create request ( success, failure)
-        var request = StringRequest(url,
+        val request = StringRequest(url,
             Response.Listener {
                 Log.d("JSON", it)                           // Bloque de success
                 success.successCompletion(it)

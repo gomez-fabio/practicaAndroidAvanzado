@@ -23,12 +23,12 @@ class RepositoryImpl(context: Context): Repository {
         cache.getAllShops(
             success = {
                 // if there's shops in cache then return them
-                Log.d("JURJUR","getAllShops success")
+                Log.d("Repository","RepositoryImpl.getAllShops success")
                 success(it)
             },
             error= {
                 // if no shops in cache the go to network, perform request and store results in cache
-                Log.d("JURJUR","getAllShops error, populating")
+                Log.d("Repository","💩 RepositoryImpl.getAllShops error")
                 populateCache(success, error)
             })
     }
@@ -49,7 +49,7 @@ class RepositoryImpl(context: Context): Repository {
                 try {
                     responseEntity = parser.parse<ShopsResponseEntity>(e)
                 } catch (e: InvalidFormatException) {
-                    error("Error parsing")
+                    error("💩 RepositoryImpl.populateCache parsing error")
                     return
                 }
 
@@ -57,7 +57,7 @@ class RepositoryImpl(context: Context): Repository {
                 cache.saveAllShops(responseEntity.result, success = {
                     success(responseEntity.result)
                 }, error = {
-                    error("JARLL error populating cache")
+                    error("💩 RepositoryImpl.populateCache cache populating error")
                 })
             }
         }, error = object: ErrorCompletion {

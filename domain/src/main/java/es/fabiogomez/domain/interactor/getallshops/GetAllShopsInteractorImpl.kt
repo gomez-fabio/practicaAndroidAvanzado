@@ -7,6 +7,7 @@ import es.fabiogomez.domain.model.Shop
 import es.fabiogomez.domain.model.Shops
 import es.fabiogomez.repository.Repository
 import es.fabiogomez.repository.RepositoryImpl
+import es.fabiogomez.repository.db.stringToFloat
 import es.fabiogomez.repository.model.ShopEntity
 import java.lang.ref.WeakReference
 
@@ -32,8 +33,8 @@ class GetAllShopsInteractorImpl (context: Context) : GetAllShopsInteractor {
                         it.name,
                         it.address,
                         it.description,
-                        it.latitude,
-                        it.longitude,
+                        stringToFloat(it.latitude),
+                        stringToFloat(it.longitude),
                         it.img,
                         it.logo,
                         it.openingHours)

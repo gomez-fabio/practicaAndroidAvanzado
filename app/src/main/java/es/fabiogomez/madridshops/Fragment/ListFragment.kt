@@ -16,12 +16,11 @@ import es.fabiogomez.madridshops.adapter.ShopsRecyclerViewAdapter
 
 class ListFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+/*    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater!!.inflate(R.layout.fragment_list, container, false)
-    }
-/*
+    }*/
     var list : MutableList<Shop>? = null
     var onShopClickListener:  ShopsRecyclerViewAdapter.OnShopSelectedListener? = null
 
@@ -29,7 +28,7 @@ class ListFragment : Fragment() {
     lateinit var root: View
 
 
-    //lateinit var adapter: ShopsRecyclerViewAdapter
+    lateinit var adapter: ShopsRecyclerViewAdapter
 
 
 
@@ -45,12 +44,12 @@ class ListFragment : Fragment() {
             shopListRecyclerView.layoutManager = GridLayoutManager(activity,1)
             shopListRecyclerView.itemAnimator = DefaultItemAnimator()
 
-//            adapter = ShopsRecyclerViewAdapter(list,onShopClickListener)
+            adapter = ShopsRecyclerViewAdapter(list,onShopClickListener)
             shopListRecyclerView.adapter = ShopsRecyclerViewAdapter(list,onShopClickListener)
         }
 
         return root
 
-    }*/
+    }
 
 }

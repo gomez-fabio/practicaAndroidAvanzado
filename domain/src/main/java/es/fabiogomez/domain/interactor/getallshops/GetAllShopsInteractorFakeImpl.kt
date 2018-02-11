@@ -21,7 +21,7 @@ class GetAllShopsInteractorFakeImpl : GetAllShopsInteractor {
 
             success.successCompletion(shops)
         } else {
-            error.errorCompletion("💩 Error while accesing repository JARL")
+            error.errorCompletion("💩 GetAllShopsInteractorFakeImpl.execute OK error")
         }
     }
 
@@ -34,7 +34,7 @@ class GetAllShopsInteractorFakeImpl : GetAllShopsInteractor {
 
             success(shops)
         } else {
-            error("💩E rror while accesing repository JARL")
+            error("💩 GetAllShopsInteractorFakeImpl.execute KO error")
         }
     }
 

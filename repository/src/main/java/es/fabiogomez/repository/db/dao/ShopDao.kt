@@ -10,17 +10,8 @@ import es.fabiogomez.repository.model.ShopEntity
 
 internal class ShopDao (val dbHelper: DBHelper) : DAOPersistable<ShopEntity>
 {
-    private val dbReadOnlyConnection: SQLiteDatabase = dbHelper.readableDatabase
-    private val dbReadWriteConnection: SQLiteDatabase = dbHelper.writableDatabase
-
-
-    override fun insert(element: ShopEntity): Long {
-        var id: Long = 0 // Valor por defecto es -1 que es un error
-
-        id = dbReadWriteConnection.insert(DBConstants.TABLE_SHOP, null,contentValues(element))
-
-        return  id
-    }
+    val dbReadOnlyConnection: SQLiteDatabase = dbHelper.readableDatabase
+    val dbReadWriteConnection: SQLiteDatabase = dbHelper.writableDatabase
 
     fun contentValues(shopEntity: ShopEntity): ContentValues {
         val content = ContentValues()
@@ -64,9 +55,7 @@ internal class ShopDao (val dbHelper: DBHelper) : DAOPersistable<ShopEntity>
         val cursor = queryCursor(id)
 
         cursor.moveToFirst()
-
         return entityFromCursor(cursor)!!
-
     }
 
     override fun query(): List<ShopEntity> {
@@ -102,6 +91,14 @@ internal class ShopDao (val dbHelper: DBHelper) : DAOPersistable<ShopEntity>
         return cursor
     }
 
+    override fun insert(element: ShopEntity): Long {
+        var id: Long = 0 // Valor por defecto es -1 que es un error
+
+        id = dbReadWriteConnection.insert(DBConstants.TABLE_SHOP, null,contentValues(element))
+
+        return  id
+    }
+
     override fun update(id: Long, element: ShopEntity): Long {
         val numberOfRecordsUpdated= dbReadWriteConnection.update(
                 DBConstants.TABLE_SHOP,
@@ -123,11 +120,12 @@ internal class ShopDao (val dbHelper: DBHelper) : DAOPersistable<ShopEntity>
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_NAME)),
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_ADDRESS)),
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_DESCRIPTION)),
-                cursor.getFloat(cursor.getColumnIndex(DBConstants.KEY_SHOP_LATITUDE)),
-                cursor.getFloat(cursor.getColumnIndex(DBConstants.KEY_SHOP_LONGITUDE)),
+                cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_LATITUDE)),
+                cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_LONGITUDE)),
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_IMAGE_URL)),
                 cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_LOGO_IMAGE_URL)),
-                cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_OPENING_HOURS)))
+                cursor.getString(cursor.getColumnIndex(DBConstants.KEY_SHOP_OPENING_HOURS))
+                )
     }
 
 }

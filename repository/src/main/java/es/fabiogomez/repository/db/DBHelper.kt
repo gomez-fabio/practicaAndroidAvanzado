@@ -3,7 +3,7 @@ package es.fabiogomez.repository.db
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-
+import android.util.Log
 
 
 internal fun build(context: Context, name: String, version: Int) : DBHelper {
@@ -45,4 +45,20 @@ internal fun convert(int: Int): Boolean {
         return false
     }
     return true
+}
+
+fun stringToFloat(string: String): Float{
+
+    var latOrLong = 0f
+
+    var cleanedString: String = string.replace( ",", "")
+
+    cleanedString = cleanedString.replace(" ", "")
+
+    if (cleanedString.length > 0) {
+        latOrLong = cleanedString.toFloat()
+    }
+
+    return latOrLong
+
 }

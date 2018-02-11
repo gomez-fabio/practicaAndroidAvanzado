@@ -11,6 +11,7 @@ import java.lang.ref.WeakReference
 internal class CacheImpl(context:Context): Cache{
     val context = WeakReference<Context>(context)
 
+    // TODO move to a configuration file
     private fun cacheDBHelper() : DBHelper {
         return build(context.get()!!,"MadridShops.sqlite", 1)
     }
@@ -23,7 +24,7 @@ internal class CacheImpl(context:Context): Cache{
                 if (shops.count() > 0) {
                     success(shops)
                 } else {
-                    error("💩 Infernal error getting shops")
+                    error("💩 CacheImpl.getAllShops error")
                 }
             })
         }).run()
@@ -38,7 +39,7 @@ internal class CacheImpl(context:Context): Cache{
                 })
             } catch (e: Exception) {
                 DispatchOnMainThread(Runnable {
-                    error("💩 Infernal error saving shops")
+                    error("💩 CacheImpl.saveAllShops error")
                 })
             }
         }).run()
@@ -54,7 +55,7 @@ internal class CacheImpl(context:Context): Cache{
                 if (successDeleting) {
                     success()
                 } else {
-                    error("💩 Infernal error deleting")
+                    error("💩 CacheImpl.deleteAllShops error")
                 }
             })
         }).run()

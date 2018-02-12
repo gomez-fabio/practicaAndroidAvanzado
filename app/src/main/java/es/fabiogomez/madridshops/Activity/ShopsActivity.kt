@@ -5,6 +5,7 @@ import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.app.Fragment
 import android.content.Context
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
@@ -28,12 +29,16 @@ import es.fabiogomez.madridshops.Fragment.ListFragment
 import es.fabiogomez.madridshops.R
 import kotlinx.android.synthetic.main.activity_main.*
 
+
+
+
 class ShopsActivity : AppCompatActivity() {
 
     val madridLatitude  = 40.427786f
     val madridLongitude = -3.695894f
     var listFragment: ListFragment? = null
     var shopList: Shops? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,18 +49,27 @@ class ShopsActivity : AppCompatActivity() {
 
         setupMap()
 
-
-/*        if (findViewById<View>(R.id.activity_main_list_fragment) != null) {
-            val fragment = ListFragment.newInstance()
-
-            fragmentManager.beginTransaction()
-                    .replace(R.id.activity_main_list_fragment, fragment as Fragment)
-                    .commit()
-        }
-
-        listFragment = supportFragmentManager.findFragmentById(R.id.activity_main_list_fragment) as ListFragment*/
+/*        // Funcional, pero desactivando las opciones de celular en el emulador
+        if(isNetworkStatusAvailable()) {
+            Log.d("NET", "Available")
+        } else {
+            Log.d("NET", "Unavailable")
+        }*/
 
     }
+
+/*    fun Context.isNetworkStatusAvailable(): Boolean {
+        val connectivityManager = this
+                .getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+
+        connectivityManager?.let {
+            val netInfo = it.activeNetworkInfo
+            netInfo?.let {
+                if (netInfo.isConnected) return true
+            }
+        }
+        return false
+    }*/
 
     private fun setupList() {
         listFragment = supportFragmentManager.findFragmentById(R.id.activity_main_list_fragment) as ListFragment?

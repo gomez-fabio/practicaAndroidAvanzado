@@ -28,7 +28,7 @@ class Shops(val shops: MutableList<Shop>) : Aggregate<Shop> {
         return shops
     }
 
-    override fun get(position: Int): Shop {
+    override operator fun get(position: Int): Shop {
         return shops.get(position)
     }
 

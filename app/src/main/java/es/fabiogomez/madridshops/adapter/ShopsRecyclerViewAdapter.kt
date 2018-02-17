@@ -1,67 +1,54 @@
 package es.fabiogomez.madridshops.adapter
 
 import android.support.v7.widget.RecyclerView
-import android.view.View
-
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import es.fabiogomez.domain.model.Shop
+import es.fabiogomez.domain.model.Shops
 import es.fabiogomez.madridshops.R
 
-class ShopsRecyclerViewAdapter(val shops: List<Shop>?, val listener:OnShopSelectedListener?): RecyclerView.Adapter<ShopsRecyclerViewAdapter.ShopListViewHolder>(){
 
-    private var onShopSelectedListener: ShopsRecyclerViewAdapter.OnShopSelectedListener? = null
-    override fun getItemCount() = shops?.size ?: 0
+class ShopRecyclerViewAdapter (val shops: Shops) : RecyclerView.Adapter<ShopRecyclerViewAdapter.ShopViewHolder>() {
 
-
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ShopListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ShopViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.shop_item, parent, false)
-        onShopSelectedListener = listener
-        return ShopListViewHolder(view)
+        return ShopViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ShopListViewHolder?, position: Int) {
-        if (shops != null) {
-            holder?.bindShop(shops[position], position)
+    override fun onBindViewHolder(holder: ShopViewHolder?, position: Int) {
+        shops.let {
+            holder?.bindShop(shops[position])
         }
     }
 
-    inner class ShopListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val shopName = itemView.findViewById<TextView>(R.id.shop_name)
-        val logo     = itemView.findViewById<ImageView>(R.id.logo_image)
-        val image    = itemView.findViewById<ImageView>(R.id.backdrop_image)
+    override fun getItemCount() = shops.count()
 
-        fun bindShop(shop: Shop, position: Int){
+    inner class ShopViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-            val context = itemView.context
+        val context = itemView.context
+        val logoImage = itemView.findViewById<ImageView>(R.id.logo_image)
+        val backImage = itemView.findViewById<ImageView>(R.id.backdrop_image)
+        val shopName  = itemView.findViewById<TextView>(R.id.shop_name)
+
+        fun bindShop(shop: Shop) {
+
+            // sync views
             shopName.text = shop.name
 
-            //shop logo image
-            Picasso.with(context).
-                    load(shop.logo).
-                    fit().
-                    into(logo)
+            Picasso.with(context)
+                    .load(shop.logo)
+                    .fit()
+                    .into(logoImage)
 
-            //backdrop shop image
-            Picasso.with(context).
-                    load(shop.img).
-                    fit().
-                    into(image)
-
-            itemView.setOnClickListener {
-                onShopSelectedListener?.onShopSelected(shop,position)
-            }
-        }
-
+            Picasso.with(context)
+                    .load(shop.img)
+                    .fit()
+                    .into(backImage)
 
         }
-
-    interface OnShopSelectedListener {
-        fun onShopSelected(shop: Shop?, position: Int)
     }
-
 }

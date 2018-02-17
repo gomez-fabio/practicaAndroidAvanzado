@@ -2,17 +2,14 @@ package es.fabiogomez.madridshops.Activity
 
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.app.Fragment
 import android.content.Context
 import android.content.pm.PackageManager
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -30,14 +27,11 @@ import es.fabiogomez.madridshops.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-
-
 class ShopsActivity : AppCompatActivity() {
 
     val madridLatitude  = 40.427786f
     val madridLongitude = -3.695894f
     var listFragment: ListFragment? = null
-    var shopList: Shops? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,9 +39,9 @@ class ShopsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        Log.d("App", "onCreate ShopsActivity")
+        //Log.d("App", "onCreate ShopsActivity")
 
-        setupMap()
+        setup()
 
 /*        // Funcional, pero desactivando las opciones de celular en el emulador
         if(isNetworkStatusAvailable()) {
@@ -71,20 +65,17 @@ class ShopsActivity : AppCompatActivity() {
         return false
     }*/
 
-    private fun setupList() {
-        listFragment = supportFragmentManager.findFragmentById(R.id.activity_main_list_fragment) as ListFragment?
 
-        listFragment?.setShops(shopList!!.shops)
-    }
 
-    private fun setupMap() {
+    private fun setup() {
         val getAllShopsInteractor : GetAllShopsInteractor = GetAllShopsInteractorImpl(this)
 
         getAllShopsInteractor.execute(object: SuccessCompletion<Shops>{
             override fun successCompletion(shops: Shops) {
-                shopList = shops
                 initializeMap(shops)
-                setupList()
+
+                listFragment = fragmentManager.findFragmentById(R.id.activity_main_list_fragment) as ListFragment?
+                listFragment?.setShops(shops)
             }
 
         }, object: ErrorCompletion{

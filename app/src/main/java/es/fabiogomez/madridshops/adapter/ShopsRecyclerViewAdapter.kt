@@ -52,6 +52,7 @@ class ShopRecyclerViewAdapter (val shops: Shops?) : RecyclerView.Adapter<ShopRec
             Picasso.with(context)
                     .load(shop.img)
                     .fit()
+                    .centerCrop()
                     .into(backImage)
 
         }

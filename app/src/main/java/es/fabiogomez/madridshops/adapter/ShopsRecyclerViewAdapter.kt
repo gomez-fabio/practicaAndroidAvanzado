@@ -12,7 +12,7 @@ import es.fabiogomez.domain.model.Shops
 import es.fabiogomez.madridshops.R
 
 
-class ShopRecyclerViewAdapter (val shops: Shops) : RecyclerView.Adapter<ShopRecyclerViewAdapter.ShopViewHolder>() {
+class ShopRecyclerViewAdapter (val shops: Shops?) : RecyclerView.Adapter<ShopRecyclerViewAdapter.ShopViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ShopViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.shop_item, parent, false)
@@ -20,12 +20,17 @@ class ShopRecyclerViewAdapter (val shops: Shops) : RecyclerView.Adapter<ShopRecy
     }
 
     override fun onBindViewHolder(holder: ShopViewHolder?, position: Int) {
-        shops.let {
+        shops?.let {
             holder?.bindShop(shops[position])
         }
     }
 
-    override fun getItemCount() = shops.count()
+    override fun getItemCount() : Int {
+       shops?.let {
+           return shops.count()
+       }
+        return 0
+    }
 
     inner class ShopViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
 

@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/activity_main_list_fragment"
-        android:name="es.fabiogomez.madridshops.Fragment.ListFragment"
+        android:name="es.fabiogomez.madridshops.Fragment.ShopsListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorAccent"

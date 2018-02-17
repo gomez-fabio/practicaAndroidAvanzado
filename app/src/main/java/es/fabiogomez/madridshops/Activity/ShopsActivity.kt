@@ -22,7 +22,7 @@ import es.fabiogomez.domain.interactor.SuccessCompletion
 import es.fabiogomez.domain.interactor.getallshops.GetAllShopsInteractor
 import es.fabiogomez.domain.interactor.getallshops.GetAllShopsInteractorImpl
 import es.fabiogomez.domain.model.Shops
-import es.fabiogomez.madridshops.Fragment.ListFragment
+import es.fabiogomez.madridshops.Fragment.ShopsListFragment
 import es.fabiogomez.madridshops.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -31,7 +31,7 @@ class ShopsActivity : AppCompatActivity() {
 
     val madridLatitude  = 40.427786f
     val madridLongitude = -3.695894f
-    var listFragment: ListFragment? = null
+    var shopsListFragment: ShopsListFragment? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,8 +74,8 @@ class ShopsActivity : AppCompatActivity() {
             override fun successCompletion(shops: Shops) {
                 initializeMap(shops)
 
-                listFragment = fragmentManager.findFragmentById(R.id.activity_main_list_fragment) as ListFragment?
-                listFragment?.setShops(shops)
+                shopsListFragment = fragmentManager.findFragmentById(R.id.activity_main_list_fragment) as ShopsListFragment?
+                shopsListFragment?.setShops(shops)
             }
 
         }, object: ErrorCompletion{

@@ -41,9 +41,9 @@ class MarkerInfoWindowAdapter(val context: Context) : GoogleMap.InfoWindowAdapte
     }
 }
 
+// credits to manu y miguel who found this workaround link
+// see: https://stackoverflow.com/questions/32725753/picasso-image-loading-issue-in-googlemap-infowindowadapter
 
-// credits to manu y miguel who find this workaround
-// 
 class MarkerCallback(val marker: Marker,
                      val url: String,
                      val imageView: ImageView,

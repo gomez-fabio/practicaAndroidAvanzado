@@ -8,8 +8,6 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -27,19 +25,18 @@ import es.fabiogomez.madridshops.adapter.MarkerInfoWindowAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class ShopsActivity : AppCompatActivity() {
+class ShopsActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListener {
 
     val madridLatitude  = 40.427786f
     val madridLongitude = -3.695894f
     var shopsListFragment: ShopsListFragment? = null
+    private var map: GoogleMap? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
-        //Log.d("App", "onCreate ShopsActivity")
 
         setup()
 
@@ -89,17 +86,37 @@ class ShopsActivity : AppCompatActivity() {
     private fun initializeMap(shops: Shops) {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.activity_main_map_fragment) as SupportMapFragment
         mapFragment.getMapAsync({ mapa ->
-            Log.d("SUCCESS", "HABEMUS MAPA")
-
             centerMapInPosition(mapa,madridLatitude.toDouble(), madridLongitude.toDouble())
             mapa.uiSettings.isRotateGesturesEnabled = false
             mapa.uiSettings.isZoomControlsEnabled = true
             showUserPosition(baseContext, mapa)
             map = mapa
-            //mapa.setInfoWindowAdapter(MarkerInfoWindowAdapter(this))
             addAllPins(shops)
 
         })
+    }
+
+    fun addAllPins(shops: Shops){
+        for (i in 0 until shops.count()){
+            val shop = shops.get(i)
+            try{
+                addPin(this.map!!, shop)
+            } catch(e: Exception){
+                Log.d("Error","💩 ShopsActivity.AddAllPin Error")
+            }
+        }
+    }
+
+    fun addPin(map: GoogleMap, shop: Shop) {
+        map.addMarker(MarkerOptions()
+                .position(LatLng(shop.latitude!!.toDouble(), shop.longitude!!.toDouble()))
+                .title(shop.name)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.fistro)))
+                .tag = shop
+
+        map.setOnInfoWindowClickListener(this)
+
+        map.setInfoWindowAdapter(MarkerInfoWindowAdapter(this))
     }
 
     fun centerMapInPosition(map:GoogleMap, latitude: Double, longitude: Double) {
@@ -125,8 +142,6 @@ class ShopsActivity : AppCompatActivity() {
 
     }
 
-    private var map: GoogleMap? = null
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 88) {
@@ -139,41 +154,8 @@ class ShopsActivity : AppCompatActivity() {
 
     }
 
-    fun addAllPins(shops: Shops){
-        for (i in 0 until shops.count()){
-            val shop = shops.get(i)
-            try{
-                addPin(this.map!!, shop)
-            } catch(e: Exception){
-                Log.d("Error","💩 ShopsActivity.AddAllPin Error")
-            }
-        }
-    }
-    fun addPin(map: GoogleMap, shop: Shop) {
-        map.addMarker(MarkerOptions()
-                .position(LatLng(shop.latitude!!.toDouble(), shop.longitude!!.toDouble()))
-                .title(shop.name)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.fistro))
-                .snippet(shop.openingHours_en))
-                .tag = shop
-
-        map.setInfoWindowAdapter(MarkerInfoWindowAdapter(this))
+    override fun onInfoWindowClick(marker: Marker?) {
+        Log.d("CLICK", "Pulsado en: " + marker )
     }
 
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 }

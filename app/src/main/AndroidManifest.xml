@@ -4,6 +4,7 @@
 
     <!-- PERMISOS -->
     <uses-permission android:name="android.permission.INTERNET" />
+
     <permission
         android:name="es.fabiogomez.madridshops.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
@@ -21,9 +22,8 @@
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
+
     <!-- PERMISOS -->
-
-
     <application
         android:name=".MadridShopsApp"
         android:allowBackup="true"
@@ -37,7 +37,6 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/GOOGLE_MAPS_API_KEY" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -53,6 +52,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.ShopDetailActivity"></activity>
     </application>
 
 </manifest>

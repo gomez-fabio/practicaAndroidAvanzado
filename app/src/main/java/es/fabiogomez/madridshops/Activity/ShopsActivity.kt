@@ -19,9 +19,11 @@ import es.fabiogomez.domain.interactor.ErrorCompletion
 import es.fabiogomez.domain.interactor.SuccessCompletion
 import es.fabiogomez.domain.interactor.getallshops.GetAllShopsInteractor
 import es.fabiogomez.domain.interactor.getallshops.GetAllShopsInteractorImpl
+import es.fabiogomez.domain.model.Shop
 import es.fabiogomez.domain.model.Shops
 import es.fabiogomez.madridshops.Fragment.ShopsListFragment
 import es.fabiogomez.madridshops.R
+import es.fabiogomez.madridshops.adapter.MarkerInfoWindowAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -94,6 +96,7 @@ class ShopsActivity : AppCompatActivity() {
             mapa.uiSettings.isZoomControlsEnabled = true
             showUserPosition(baseContext, mapa)
             map = mapa
+            //mapa.setInfoWindowAdapter(MarkerInfoWindowAdapter(this))
             addAllPins(shops)
 
         })
@@ -118,7 +121,7 @@ class ShopsActivity : AppCompatActivity() {
             return
         }
 
-        map?.isMyLocationEnabled = true
+        map.isMyLocationEnabled = true
 
     }
 
@@ -140,22 +143,23 @@ class ShopsActivity : AppCompatActivity() {
         for (i in 0 until shops.count()){
             val shop = shops.get(i)
             try{
-                addPin(this.map!!,
-                        shop.latitude!!.toDouble(),
-                        shop.longitude!!.toDouble(),
-                        shop.name)
+                addPin(this.map!!, shop)
             } catch(e: Exception){
                 Log.d("Error","💩 ShopsActivity.AddAllPin Error")
             }
         }
     }
-    fun addPin(map: GoogleMap, latitude: Double, longitude: Double, title: String) {
+    fun addPin(map: GoogleMap, shop: Shop) {
         map.addMarker(MarkerOptions()
-                        .position(LatLng(latitude,longitude))
-                        .title(title)
+                .position(LatLng(shop.latitude!!.toDouble(), shop.longitude!!.toDouble()))
+                .title(shop.name)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.fistro))
-        )
+                .snippet(shop.openingHours_en))
+                .tag = shop
+
+        map.setInfoWindowAdapter(MarkerInfoWindowAdapter(this))
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -14,9 +14,7 @@ import android.widget.Toast
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import es.fabiogomez.domain.interactor.ErrorCompletion
 import es.fabiogomez.domain.interactor.SuccessCompletion
 import es.fabiogomez.domain.interactor.getallshops.GetAllShopsInteractor
@@ -152,7 +150,11 @@ class ShopsActivity : AppCompatActivity() {
         }
     }
     fun addPin(map: GoogleMap, latitude: Double, longitude: Double, title: String) {
-        map.addMarker(MarkerOptions().position(LatLng(latitude,longitude)).title(title))
+        map.addMarker(MarkerOptions()
+                        .position(LatLng(latitude,longitude))
+                        .title(title)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.fistro))
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

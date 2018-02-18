@@ -155,7 +155,7 @@ class ShopsActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListener {
     }
 
     override fun onInfoWindowClick(marker: Marker?) {
-        Log.d("CLICK", "Pulsado en: " + marker )
+        //Log.d("CLICK", "Pulsado en: " + marker )
         Router().navigateFromShopsActivityToShopsDetailActivity(this, marker?.tag as Shop)
     }
 

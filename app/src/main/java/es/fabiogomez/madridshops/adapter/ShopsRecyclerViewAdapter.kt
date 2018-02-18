@@ -12,16 +12,20 @@ import es.fabiogomez.domain.model.Shops
 import es.fabiogomez.madridshops.R
 
 
-class ShopRecyclerViewAdapter (val shops: Shops?) : RecyclerView.Adapter<ShopRecyclerViewAdapter.ShopViewHolder>() {
+class ShopRecyclerViewAdapter (val shops: Shops?, val listener: OnShopSelectedListener?) : RecyclerView.Adapter<ShopRecyclerViewAdapter.ShopViewHolder>() {
+
+    private var onShopSelectedListener: ShopRecyclerViewAdapter.OnShopSelectedListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ShopViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.shop_item, parent, false)
+        onShopSelectedListener = listener
+
         return ShopViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ShopViewHolder?, position: Int) {
         shops?.let {
-            holder?.bindShop(shops[position])
+            holder?.bindShop(shops[position], position)
         }
     }
 
@@ -39,7 +43,7 @@ class ShopRecyclerViewAdapter (val shops: Shops?) : RecyclerView.Adapter<ShopRec
         val backImage = itemView.findViewById<ImageView>(R.id.backdrop_image)
         val shopName  = itemView.findViewById<TextView>(R.id.shop_name)
 
-        fun bindShop(shop: Shop) {
+        fun bindShop(shop: Shop, position: Int) {
 
             // sync views
             shopName.text = shop.name
@@ -55,6 +59,15 @@ class ShopRecyclerViewAdapter (val shops: Shops?) : RecyclerView.Adapter<ShopRec
                     .centerCrop()
                     .into(backImage)
 
+            itemView.setOnClickListener {
+                onShopSelectedListener?.onShopSelected(shop,position)
+            }
         }
     }
+
+    interface OnShopSelectedListener {
+        fun onShopSelected(shop: Shop?, position: Int)
+    }
 }
+
+

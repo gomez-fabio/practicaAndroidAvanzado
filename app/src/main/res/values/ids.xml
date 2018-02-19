@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="detail_shop_description" type="id">detail_shop_description</item>
+    <item name="detail_shop_name" type="id" />
+    <item name="detail_shop_address" type="id" />
+    <item name="detail_opening_hours" type="id" />
+</resources>

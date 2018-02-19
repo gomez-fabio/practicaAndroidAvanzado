@@ -155,11 +155,13 @@ class ShopsActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListener, 
 
     }
 
+    // Navigation from the maps "call outs"
     override fun onInfoWindowClick(marker: Marker?) {
         //Log.d("CLICK", "Pulsado en: " + marker )
         Router().navigateFromShopsActivityToShopsDetailActivity(this, marker?.tag as Shop)
     }
 
+    // Navigation from the recyclerView Elements
     override fun onShopSelected(shop: Shop?, position: Int) {
         //Log.d("CLICK", "Pulsado en: " + shop + " que está en la pos:" + position )
         shop.let {

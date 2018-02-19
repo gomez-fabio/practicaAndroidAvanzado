@@ -12,7 +12,9 @@ import es.fabiogomez.domain.model.Shops
 import es.fabiogomez.madridshops.R
 
 
-class ShopRecyclerViewAdapter (val shops: Shops?, val listener: OnShopSelectedListener?) : RecyclerView.Adapter<ShopRecyclerViewAdapter.ShopViewHolder>() {
+
+class ShopRecyclerViewAdapter (val shops: Shops?, val listener:OnShopSelectedListener?) : RecyclerView.Adapter<ShopRecyclerViewAdapter.ShopViewHolder>() {
+
 
     private var onShopSelectedListener: ShopRecyclerViewAdapter.OnShopSelectedListener? = null
 

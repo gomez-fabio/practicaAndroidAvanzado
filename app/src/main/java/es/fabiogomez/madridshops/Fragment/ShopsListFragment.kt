@@ -20,6 +20,8 @@ class ShopsListFragment : Fragment() {
     lateinit var shopsList: RecyclerView
     var list : Shops? = null
 
+    var onShopClickListener: ShopRecyclerViewAdapter.OnShopSelectedListener? = null
+
     lateinit var adapter: ShopRecyclerViewAdapter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -40,7 +42,12 @@ class ShopsListFragment : Fragment() {
 
     fun setShops(shops:Shops) {
         list = shops
-        adapter = ShopRecyclerViewAdapter(list)
+        adapter = ShopRecyclerViewAdapter(list, onShopClickListener)
         shopsList.adapter = adapter
-    }
+
+        }
+
+
+
+
 }

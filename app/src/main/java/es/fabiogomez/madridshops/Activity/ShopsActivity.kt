@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
+import android.widget.ViewSwitcher
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -26,20 +27,29 @@ import es.fabiogomez.madridshops.adapter.ShopRecyclerViewAdapter
 import es.fabiogomez.madridshops.router.Router
 import es.fabiogomez.madridshops.utils.MADRID_LATITUDE
 import es.fabiogomez.madridshops.utils.MADRID_LONGITUDE
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class ShopsActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListener, ShopRecyclerViewAdapter.OnShopSelectedListener {
+
+    enum class SWITCHER_INDEX(val index: Int) {
+        LOADING(0),
+        WHOLE_SCREEN(1)
+    }
 
     val madridLatitude  = MADRID_LATITUDE
     val madridLongitude = MADRID_LONGITUDE
     var shopsListFragment: ShopsListFragment? = null
     private var map: GoogleMap? = null
+    lateinit var viewSwitcher: ViewSwitcher
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        setContentView(R.layout.activity_shops)
+
+        viewSwitcher = findViewById(R.id.view_switcher)
+        viewSwitcher.setInAnimation(this, android.R.anim.fade_in)
+        viewSwitcher.setOutAnimation(this, android.R.anim.fade_out)
 
         setup()
 
@@ -70,10 +80,13 @@ class ShopsActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListener, 
     private fun setup() {
         val getAllShopsInteractor : GetAllShopsInteractor = GetAllShopsInteractorImpl(this)
 
+        viewSwitcher.displayedChild = SWITCHER_INDEX.LOADING.index
+
         getAllShopsInteractor.execute(object: SuccessCompletion<Shops>{
             override fun successCompletion(shops: Shops) {
-                initializeMap(shops)
+                viewSwitcher.displayedChild = SWITCHER_INDEX.WHOLE_SCREEN.index
 
+                initializeMap(shops)
                 shopsListFragment = fragmentManager.findFragmentById(R.id.activity_main_list_fragment) as ShopsListFragment?
                 shopsListFragment?.setShops(shops)
             }
@@ -147,9 +160,9 @@ class ShopsActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListener, 
                 !=PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION), 88)
             return
+        } else {
+            map.isMyLocationEnabled = true
         }
-
-        map.isMyLocationEnabled = true
 
     }
 

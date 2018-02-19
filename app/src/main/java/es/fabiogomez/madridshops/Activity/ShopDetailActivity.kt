@@ -32,6 +32,7 @@ class ShopDetailActivity : AppCompatActivity() {
         Picasso.with(this)
                 .load(shop.img)
                 .fit()
+                .error(R.drawable.fistro_place_holder)
                 .into(shopImage)
 
         shopName.text    = shop.name
@@ -42,6 +43,7 @@ class ShopDetailActivity : AppCompatActivity() {
         Picasso.with(this)
                 .load(shopMapURL)
                 .fit()
+                .error(R.drawable.fistro_place_holder)
                 .into(shopMap)
 
     }

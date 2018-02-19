@@ -24,13 +24,15 @@ import es.fabiogomez.madridshops.R
 import es.fabiogomez.madridshops.adapter.MarkerInfoWindowAdapter
 import es.fabiogomez.madridshops.adapter.ShopRecyclerViewAdapter
 import es.fabiogomez.madridshops.router.Router
+import es.fabiogomez.madridshops.utils.MADRID_LATITUDE
+import es.fabiogomez.madridshops.utils.MADRID_LONGITUDE
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class ShopsActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListener, ShopRecyclerViewAdapter.OnShopSelectedListener {
 
-    val madridLatitude  = 40.427786f
-    val madridLongitude = -3.695894f
+    val madridLatitude  = MADRID_LATITUDE
+    val madridLongitude = MADRID_LONGITUDE
     var shopsListFragment: ShopsListFragment? = null
     private var map: GoogleMap? = null
 
@@ -97,6 +99,10 @@ class ShopsActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListener, 
         })
     }
 
+
+
+    // MAP
+
     fun addAllPins(shops: Shops){
         for (i in 0 until shops.count()){
             val shop = shops.get(i)
@@ -130,6 +136,10 @@ class ShopsActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListener, 
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
     }
 
+
+
+    // Permissions
+
     fun showUserPosition(context: Context, map: GoogleMap) {
         if (ActivityCompat.checkSelfPermission(context, ACCESS_FINE_LOCATION)
                 !=PackageManager.PERMISSION_GRANTED &&
@@ -155,13 +165,19 @@ class ShopsActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListener, 
 
     }
 
+
+
     // Navigation from the maps "call outs"
+
     override fun onInfoWindowClick(marker: Marker?) {
         //Log.d("CLICK", "Pulsado en: " + marker )
         Router().navigateFromShopsActivityToShopsDetailActivity(this, marker?.tag as Shop)
     }
 
+
+
     // Navigation from the recyclerView Elements
+
     override fun onShopSelected(shop: Shop?, position: Int) {
         //Log.d("CLICK", "Pulsado en: " + shop + " que está en la pos:" + position )
         shop.let {

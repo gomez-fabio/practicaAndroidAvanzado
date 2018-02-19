@@ -53,12 +53,16 @@ class ShopRecyclerViewAdapter (val shops: Shops?, val listener:OnShopSelectedLis
             Picasso.with(context)
                     .load(shop.logo)
                     .fit()
+                    .error(R.drawable.fistro_place_holder)
+                    .placeholder(android.R.drawable.presence_away)
                     .into(logoImage)
 
             Picasso.with(context)
                     .load(shop.img)
                     .fit()
                     .centerCrop()
+                    .error(R.drawable.fistro_place_holder)
+                    .placeholder(android.R.drawable.presence_away)
                     .into(backImage)
 
             itemView.setOnClickListener {
@@ -69,6 +73,8 @@ class ShopRecyclerViewAdapter (val shops: Shops?, val listener:OnShopSelectedLis
 
     interface OnShopSelectedListener {
         fun onShopSelected(shop: Shop?, position: Int)
+
+
     }
 }
 

@@ -56,6 +56,7 @@ class MarkerCallback(val marker: Marker,
             Picasso
                     .with(context)
                     .load(url)
+                    .error(R.drawable.fistro_place_holder)
                     .into(imageView)
 
             marker.showInfoWindow()

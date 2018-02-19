@@ -2,6 +2,7 @@ package es.fabiogomez.madridshops
 
 import android.support.multidex.MultiDexApplication
 import android.util.Log
+import com.squareup.picasso.Picasso
 import es.fabiogomez.domain.interactor.ErrorCompletion
 import es.fabiogomez.domain.interactor.SuccessCompletion
 import es.fabiogomez.domain.interactor.getallshops.GetAllShopsInteractorImpl
@@ -15,7 +16,9 @@ class MadridShopsApp: MultiDexApplication() {
 
         // init code application wide, base de datos, inyeccion de dependencias, etc...
 
-        val allShopsInteractor = GetAllShopsInteractorImpl(this)
+        Picasso.with(this).setIndicatorsEnabled(false)
+
+/*        val allShopsInteractor = GetAllShopsInteractorImpl(this)
 
         allShopsInteractor.execute(
         success = object : SuccessCompletion<Shops>{
@@ -29,13 +32,13 @@ class MadridShopsApp: MultiDexApplication() {
             override fun errorCompletion(errorMessage: String) {
                 Log.d("Shops", errorMessage)
             }
-        })
+        })*/
 
-//        DeleteAllShopsImpl(this).execute(success = {
-//            Log.d("JARLL", "success!")
-//        }, error = {
-//            Log.d("JARLL", "error deleting!")
-//        })
+/*        DeleteAllShopsImpl(this).execute(success = {
+            Log.d("JARLL", "success!")
+        }, error = {
+            Log.d("JARLL", "error deleting!")
+        })*/
     }
 
     override fun onLowMemory() {

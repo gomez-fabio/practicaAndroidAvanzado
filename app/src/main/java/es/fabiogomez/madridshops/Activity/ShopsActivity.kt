@@ -22,11 +22,12 @@ import es.fabiogomez.domain.model.Shops
 import es.fabiogomez.madridshops.Fragment.ShopsListFragment
 import es.fabiogomez.madridshops.R
 import es.fabiogomez.madridshops.adapter.MarkerInfoWindowAdapter
+import es.fabiogomez.madridshops.adapter.ShopRecyclerViewAdapter
 import es.fabiogomez.madridshops.router.Router
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class ShopsActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListener {
+class ShopsActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListener, ShopRecyclerViewAdapter.OnShopSelectedListener {
 
     val madridLatitude  = 40.427786f
     val madridLongitude = -3.695894f
@@ -157,6 +158,10 @@ class ShopsActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListener {
     override fun onInfoWindowClick(marker: Marker?) {
         //Log.d("CLICK", "Pulsado en: " + marker )
         Router().navigateFromShopsActivityToShopsDetailActivity(this, marker?.tag as Shop)
+    }
+
+    override fun onShopSelected(shop: Shop?, position: Int) {
+        Log.d("CLICK", "Pulsado en: " + shop + " que está en la pos:" + position )
     }
 
 }

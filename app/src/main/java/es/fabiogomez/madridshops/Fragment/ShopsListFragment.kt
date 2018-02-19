@@ -1,7 +1,9 @@
 package es.fabiogomez.madridshops.Fragment
 
 
+import android.app.Activity
 import android.app.Fragment
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
@@ -48,6 +50,30 @@ class ShopsListFragment : Fragment() {
         }
 
 
+    // Fragment life cycle functions
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        commonOnAttach(context)
+    }
+
+    @Suppress("OverridingDeprecatedMember")
+    override fun onAttach(activity: Activity?) {
+        super.onAttach(activity)
+        commonOnAttach(activity)
+    }
+
+    // reference to attached activity
+    private fun commonOnAttach(context: Context?) {
+        if (context is ShopRecyclerViewAdapter.OnShopSelectedListener) {
+            onShopClickListener = context
+        }
+    }
+
+    // on deattach from activity
+    override fun onDetach() {
+        super.onDetach()
+        onShopClickListener = null
+    }
 
 
 }

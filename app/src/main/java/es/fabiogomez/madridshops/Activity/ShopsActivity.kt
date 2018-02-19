@@ -161,7 +161,10 @@ class ShopsActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListener, 
     }
 
     override fun onShopSelected(shop: Shop?, position: Int) {
-        Log.d("CLICK", "Pulsado en: " + shop + " que está en la pos:" + position )
+        //Log.d("CLICK", "Pulsado en: " + shop + " que está en la pos:" + position )
+        shop.let {
+            Router().navigateFromShopsActivityToShopsDetailActivity(this, shop!!)
+        }
     }
 
 }

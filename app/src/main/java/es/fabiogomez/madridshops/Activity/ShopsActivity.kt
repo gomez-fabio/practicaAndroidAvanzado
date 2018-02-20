@@ -52,30 +52,7 @@ class ShopsActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListener, 
         viewSwitcher.setOutAnimation(this, android.R.anim.fade_out)
 
         setup()
-
-/*        // Funcional, pero desactivando las opciones de celular en el emulador
-        if(isNetworkStatusAvailable()) {
-            Log.d("NET", "Available")
-        } else {
-            Log.d("NET", "Unavailable")
-        }*/
-
     }
-
-/*    fun Context.isNetworkStatusAvailable(): Boolean {
-        val connectivityManager = this
-                .getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
-
-        connectivityManager?.let {
-            val netInfo = it.activeNetworkInfo
-            netInfo?.let {
-                if (netInfo.isConnected) return true
-            }
-        }
-        return false
-    }*/
-
-
 
     private fun setup() {
         val getAllShopsInteractor : GetAllShopsInteractor = GetAllShopsInteractorImpl(this)

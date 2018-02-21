@@ -10,6 +10,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import es.fabiogomez.domain.model.Activity
 import es.fabiogomez.domain.model.Shop
 import es.fabiogomez.madridshops.R
 
@@ -20,25 +21,40 @@ class MarkerInfoWindowAdapter(val context: Context) : GoogleMap.InfoWindowAdapte
         return null
     }
 
+    val v = LayoutInflater.from(context).inflate(R.layout.map_info_window, null)
 
     override fun getInfoContents(marker: Marker): View {
 
-        val shop = marker.tag as Shop
-        val name = shop.name
-        val logo = shop.logo
+        if (marker.tag is Shop) {
+            val shop = marker.tag as Shop
+            val name = shop.name
+            val logo = shop.logo
+            val shopName = v.findViewById(R.id.callout_name) as TextView
+            val shoplogo = v.findViewById(R.id.callout_logo) as ImageView
 
-        val v = LayoutInflater.from(context).inflate(R.layout.map_info_window, null)
+            shopName.text = name
 
-        val shopName = v.findViewById(R.id.callout_shop_name) as TextView
-        val shoplogo = v.findViewById(R.id.callout_shop_logo) as ImageView
-        shopName.text = name
+            Picasso
+                    .with(context)
+                    .load(logo)
+                    .into(shoplogo, MarkerCallback(marker, logo, shoplogo, context))
+        } else {
+            val activity = marker.tag as Activity
+            val name = activity.name
+            val logo = activity.logo
+            val activityName = v.findViewById(R.id.callout_name) as TextView
+            val activitylogo = v.findViewById(R.id.callout_logo) as ImageView
 
-        Picasso
-                .with(context)
-                .load(logo)
-                .into(shoplogo, MarkerCallback(marker, logo, shoplogo, context))
+            activityName.text = name
+
+            Picasso
+                    .with(context)
+                    .load(logo)
+                    .into(activitylogo, MarkerCallback(marker, logo, activitylogo, context))
+        }
         return v
     }
+
 }
 
 // credits to manu y miguel who found this workaround link

@@ -47,7 +47,7 @@ class ShopsActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListener, 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shops)
 
-        viewSwitcher = findViewById(R.id.view_switcher)
+        viewSwitcher = findViewById(R.id.shop_view_switcher)
         viewSwitcher.setInAnimation(this, android.R.anim.fade_in)
         viewSwitcher.setOutAnimation(this, android.R.anim.fade_out)
 

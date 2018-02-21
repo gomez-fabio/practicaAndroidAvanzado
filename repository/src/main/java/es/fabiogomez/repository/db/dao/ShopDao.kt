@@ -63,7 +63,7 @@ internal class ShopDao (val dbHelper: DBHelper) : DAOPersistable<ShopEntity>
 
         val cursor = dbReadOnlyConnection.query(
                 DBConstants.TABLE_SHOP,
-                DBConstants.ALL_COLUMNS,
+                DBConstants.ALL_SHOP_COLUMNS,
                 null,
                 null,
                 "",
@@ -81,7 +81,7 @@ internal class ShopDao (val dbHelper: DBHelper) : DAOPersistable<ShopEntity>
     override fun queryCursor(id: Long): Cursor {
         val cursor = dbReadOnlyConnection.query(
                 DBConstants.TABLE_SHOP,
-                DBConstants.ALL_COLUMNS,
+                DBConstants.ALL_SHOP_COLUMNS,
                 DBConstants.KEY_SHOP_DATABASE_ID + " = ?",
                 arrayOf(id.toString()),
                 "",

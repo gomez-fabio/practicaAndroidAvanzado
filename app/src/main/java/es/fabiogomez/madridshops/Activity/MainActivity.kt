@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun goActivities() {
-        Log.d("DUMMY", "This do nothing")
+        Router().navigateFromMainActivityToActivitiesActivity(this)
     }
 
 

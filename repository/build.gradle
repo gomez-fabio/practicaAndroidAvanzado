@@ -18,10 +18,12 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", "MADRID_SHOPS_SERVER_URL", "\"http://madrid-shops.com/json_new/getShops.php\""
+            buildConfigField "String", "MADRID_SHOPS_GETSHOPS_SERVER_URL", "\"http://madrid-shops.com/json_new/getShops.php\""
+            buildConfigField "String", "MADRID_SHOPS_GETACTIVITIES_SERVER_URL", "\"http://madrid-shops.com/json_new/getActivities.php\""
         }
         release {
-            buildConfigField "String", "MADRID_SHOPS_SERVER_URL", "\"http://madrid-shops.com/json_new/getShops.php\""
+            buildConfigField "String", "MADRID_SHOPS_GETSHOPS_SERVER_URL", "\"http://madrid-shops.com/json_new/getShops.php\""
+            buildConfigField "String", "MADRID_SHOPS_GETACTIVITIES_SERVER_URL", "\"http://madrid-shops.com/json_new/getActivities.php\""
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -29,6 +31,7 @@ android {
     }
 
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

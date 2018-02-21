@@ -158,8 +158,8 @@ class ActivitiesActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListe
     // Navigation from the maps "call outs"
 
     override fun onInfoWindowClick(marker: Marker?) {
-        Log.d("CLICK", "Pulsado en: " + marker )
-        //Router().navigateFromActivitiesActivityToActivitiesDetailActivity(this, marker?.tag as Activity)
+        //Log.d("CLICK", "Pulsado en: " + marker )
+        Router().navigateFromActivitiesActivityToActivitiesDetailActivity(this, marker?.tag as Activity)
     }
 
 
@@ -167,10 +167,10 @@ class ActivitiesActivity : AppCompatActivity(), GoogleMap.OnInfoWindowClickListe
     // Navigation from the recyclerView Elements
 
     override fun onActivitySelected(activity: Activity?, position: Int) {
-        Log.d("CLICK", "Pulsado en: " + activity + " que está en la pos:" + position )
-        /*activity.let {
+        //Log.d("CLICK", "Pulsado en: " + activity + " que está en la pos:" + position )
+        activity.let {
             Router().navigateFromActivitiesActivityToActivitiesDetailActivity(this, activity!!)
-        }*/
+        }
     }
 
 }

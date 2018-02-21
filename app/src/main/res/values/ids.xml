@@ -4,4 +4,8 @@
     <item name="detail_shop_name" type="id" />
     <item name="detail_shop_address" type="id" />
     <item name="detail_opening_hours" type="id" />
+    <item name="detail_activity_name" type="id" />
+    <item name="detail_activity_address" type="id" />
+    <item name="activity_detail_opening_hours" type="id" />
+    <item name="detail_activity_description" type="id" />
 </resources>

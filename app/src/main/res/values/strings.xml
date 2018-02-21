@@ -2,9 +2,7 @@
     <string name="app_name">MadridShops</string>
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Madrid Shops</string>
     <string name="background" />
     <string name="buttonShops">Button</string>
     <string name="buttonActivities">Button</string>

@@ -50,6 +50,7 @@ class MarkerInfoWindowAdapter(val context: Context) : GoogleMap.InfoWindowAdapte
             Picasso
                     .with(context)
                     .load(logo)
+                    .error(R.drawable.fistro_place_holder)
                     .into(activitylogo, MarkerCallback(marker, logo, activitylogo, context))
         }
         return v

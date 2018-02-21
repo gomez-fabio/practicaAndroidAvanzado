@@ -7,8 +7,9 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View.GONE
+import android.view.View.*
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import es.fabiogomez.domain.interactor.deleteallactivities.DeleteAllActivities
@@ -26,18 +27,9 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.buttonShops).setOnClickListener { goShops() }
         findViewById<Button>(R.id.buttonActivities).setOnClickListener { goActivities() }
+        findViewById<Button>(R.id.buttonRefresh).setOnClickListener { isNetworkAvailable() }
 
-        if(isNetworkStatusAvailable()) {
-            Log.d("NET", "Available")
-        } else {
-            Log.d("NET", "Unavailable")
-            findViewById<Button>(R.id.buttonShops).isEnabled=false
-            findViewById<Button>(R.id.buttonShops).visibility = GONE
-            findViewById<TextView>(R.id.shopsLabel).visibility = GONE
-            findViewById<Button>(R.id.buttonActivities).isEnabled=false
-            findViewById<Button>(R.id.buttonActivities).visibility = GONE
-            findViewById<TextView>(R.id.activitiesLabel).visibility = GONE
-        }
+        isNetworkAvailable()
 
     }
 
@@ -85,6 +77,29 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun isNetworkAvailable() {
+        if(isNetworkStatusAvailable()) {
+            Log.d("NET", "Available")
+            findViewById<Button>(R.id.buttonShops).isEnabled=true
+            findViewById<Button>(R.id.buttonShops).visibility = VISIBLE
+            findViewById<TextView>(R.id.shopsLabel).visibility = VISIBLE
+            findViewById<Button>(R.id.buttonActivities).isEnabled=true
+            findViewById<Button>(R.id.buttonActivities).visibility = VISIBLE
+            findViewById<TextView>(R.id.activitiesLabel).visibility = VISIBLE
+            findViewById<Button>(R.id.buttonRefresh).visibility = GONE
+            findViewById<Button>(R.id.buttonRefresh).isEnabled = false
+        } else {
+            Log.d("NET", "Unavailable")
+            findViewById<Button>(R.id.buttonShops).isEnabled=false
+            findViewById<Button>(R.id.buttonShops).visibility = GONE
+            findViewById<TextView>(R.id.shopsLabel).visibility = GONE
+            findViewById<Button>(R.id.buttonActivities).isEnabled=false
+            findViewById<Button>(R.id.buttonActivities).visibility = GONE
+            findViewById<TextView>(R.id.activitiesLabel).visibility = GONE
+            findViewById<Button>(R.id.buttonRefresh).visibility = VISIBLE
+            findViewById<Button>(R.id.buttonRefresh).isEnabled = true
+        }
+    }
 
     private fun Context.isNetworkStatusAvailable(): Boolean {
         val connectivityManager = this

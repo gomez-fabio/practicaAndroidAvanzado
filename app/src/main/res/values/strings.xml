@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">MadridShops</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Clear Cache</string>
 
     <string name="title_activity_main">Madrid Shops</string>
     <string name="background" />
     <string name="buttonShops">Button</string>
     <string name="buttonActivities">Button</string>
     <string name="shops">Shops</string>
+    <string name="activities">Activities</string>
+    <string name="la_tienda_de_chiquito">La tienda de chiquito</string>
 </resources>

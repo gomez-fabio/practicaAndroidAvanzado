@@ -3,16 +3,20 @@ package es.fabiogomez.madridshops.Activity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View.GONE
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import es.fabiogomez.domain.interactor.deleteallactivities.DeleteAllActivities
+import es.fabiogomez.domain.interactor.deleteallactivities.DeleteAllActivitiesImpl
+import es.fabiogomez.domain.interactor.deleteallshops.DeleteAllShops
+import es.fabiogomez.domain.interactor.deleteallshops.DeleteAllShopsImpl
 import es.fabiogomez.madridshops.R
 import es.fabiogomez.madridshops.router.Router
-
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,6 +40,51 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+
+        menuInflater.inflate(R.menu.menu_main, menu)
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == R.id.action_settings) {
+            clearCacheMadridShops()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun clearCacheMadridShops() {
+        Log.d("CACHE", "Clearing Cache")
+
+        val deleteAllShopsInteractor : DeleteAllShops = DeleteAllShopsImpl(this)
+        val deleteAllActivitiesInteractor : DeleteAllActivities = DeleteAllActivitiesImpl(this)
+
+        deleteAllShopsInteractor.execute({
+            Toast
+                    .makeText(this,"Shops Cache Successfully cleared", Toast.LENGTH_SHORT)
+                    .show()
+        },{
+            Toast
+                    .makeText(this,"Something gone wrong trying to clear the Shops Cache", Toast.LENGTH_SHORT)
+                    .show()
+        })
+
+        deleteAllActivitiesInteractor.execute({
+            Toast
+                    .makeText(this,"Activities Cache Successfully cleared", Toast.LENGTH_SHORT)
+                    .show()
+        },{
+            Toast
+                    .makeText(this,"Something gone wrong trying to clear the Activities Cache", Toast.LENGTH_SHORT)
+                    .show()
+        })
+
+    }
+
 
     private fun Context.isNetworkStatusAvailable(): Boolean {
         val connectivityManager = this

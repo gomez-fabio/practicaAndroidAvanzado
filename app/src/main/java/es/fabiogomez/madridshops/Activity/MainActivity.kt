@@ -3,6 +3,7 @@ package es.fabiogomez.madridshops.Activity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
@@ -98,6 +99,13 @@ class MainActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.activitiesLabel).visibility = GONE
             findViewById<Button>(R.id.buttonRefresh).visibility = VISIBLE
             findViewById<Button>(R.id.buttonRefresh).isEnabled = true
+            AlertDialog.Builder(this)
+                    .setTitle("Looks like a problem to me")
+                    .setMessage("It seems there is no active connection to the internet")
+                    .setPositiveButton("OK", { dialog, which ->
+                        dialog.dismiss()
+                    })
+                    .show()
         }
     }
 

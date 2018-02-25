@@ -16,8 +16,9 @@ class ShopDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shop_detail)
 
-
         val shop = intent.getSerializableExtra(INTENT_SHOP_DETAIL_ACTIVITY) as Shop
+
+        title = shop.name
 
         val shopImage       = this.findViewById<ImageView>(R.id.detail_shop_image)
         val shopName        = this.findViewById<TextView>(R.id.detail_shop_name)

@@ -19,6 +19,8 @@ class ActivityDetailActivity : AppCompatActivity() {
 
         val activity = intent.getSerializableExtra(INTENT_ACTIVITY_DETAIL_ACTIVITY) as Activity
 
+        title = activity.name
+
         val activityImage       = this.findViewById<ImageView>(R.id.detail_activity_image)
         val activityName        = this.findViewById<TextView>(R.id.detail_activity_name)
         val activityAddress     = this.findViewById<TextView>(R.id.detail_activity_address)
